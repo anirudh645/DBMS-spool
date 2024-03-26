@@ -1,0 +1,107 @@
+SQL> create table bookinv(id int,title varchar(10),author varchar(10), genre varchar(20),publication_year int,price number(5,3));
+
+Table created.
+
+SQL> insert into bookinv values(1,'1984','George','fiction',1949,13.99);
+
+1 row created.
+
+SQL> insert into bookinv values(2,'Dune','Frank','Science',1965,17.99);
+
+1 row created.
+
+SQL> insert into bookinv values(3,'WhiteTiger','Aravind','Social',2008,12.99);
+
+1 row created.
+
+SQL> insert into bookinv values(4,'The Guide','Narayana','Satirical',1956,9.99);
+
+1 row created.
+
+SQL> insert into bookinv values(5,'Traintopak','Singh','Historical',1956,14.99);
+
+1 row created.
+
+SQL> insert into bookinv values(6,'Palace','Banerjee','Historical',2001,15.99);
+
+1 row created.
+
+SQL> select * from bookinv;
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         1 1984       George     fiction                1949      13.99         
+         2 Dune       Frank      Science                1965      17.99         
+         3 WhiteTiger Aravind    Social                 2008      12.99         
+         4 The Guide  Narayana   Satirical              1956       9.99         
+         5 Traintopak Singh      Historical             1956      14.99         
+         6 Palace     Banerjee   Historical             2001      15.99         
+
+6 rows selected.
+
+SQL> select * from bookinv where price >=12.99;
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         1 1984       George     fiction                1949      13.99         
+         2 Dune       Frank      Science                1965      17.99         
+         3 WhiteTiger Aravind    Social                 2008      12.99         
+         5 Traintopak Singh      Historical             1956      14.99         
+         6 Palace     Banerjee   Historical             2001      15.99         
+
+SQL> select * from bookinv where genre='Historical' or genre = 'Social';
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         3 WhiteTiger Aravind    Social                 2008      12.99         
+         5 Traintopak Singh      Historical             1956      14.99         
+         6 Palace     Banerjee   Historical             2001      15.99         
+
+SQL> select * from bookinv where genre <> 'Historical';
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         1 1984       George     fiction                1949      13.99         
+         2 Dune       Frank      Science                1965      17.99         
+         3 WhiteTiger Aravind    Social                 2008      12.99         
+         4 The Guide  Narayana   Satirical              1956       9.99         
+
+SQL> select  * from bookinv where publication_year between 1990 and 2010;
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         3 WhiteTiger Aravind    Social                 2008      12.99         
+         6 Palace     Banerjee   Historical             2001      15.99         
+
+SQL> select * from bookinv where price in (13.99,9.99,12.99);
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         1 1984       George     fiction                1949      13.99         
+         3 WhiteTiger Aravind    Social                 2008      12.99         
+         4 The Guide  Narayana   Satirical              1956       9.99         
+
+SQL> select * from bookinv where title like 'T%';
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         4 The Guide  Narayana   Satirical              1956       9.99         
+         5 Traintopak Singh      Historical             1956      14.99         
+
+SQL> select * from bookinv where author like 'N__a%';
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         4 The Guide  Narayana   Satirical              1956       9.99         
+
+SQL> select * from bookinv where title like '%e';
+
+        ID TITLE      AUTHOR     GENRE      PUBLICATION_YEAR      PRICE         
+---------- ---------- ---------- ---------- ---------------- ----------         
+         2 Dune       Frank      Science                1965      17.99         
+         4 The Guide  Narayana   Satirical              1956       9.99         
+         6 Palace     Banerjee   Historical             2001      15.99         
+
+SQL> spool off
+
+

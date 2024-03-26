@@ -1,0 +1,58 @@
+SQL> create table movies(id int primary key, title varchar2(20), genre varchar2(20), release_year int, rating int );
+
+Table created.
+
+SQL> insert into movies values(1,'The Godfather','Crime',1972,4.9);
+
+1 row created.
+
+SQL> insert into movies values(2,'Inception', 'Thriller',2010,4.8);
+
+1 row created.
+
+SQL> insert into movies values(3,'Parasite','Drama',2019,4.3);
+
+1 row created.
+
+SQL> insert into movies values(4,'Tenet','Action',2020,4.8);
+
+1 row created.
+
+SQL> insert into movies values(5,'Avatar 2','Action',2022,5);
+
+1 row created.
+
+SQL> select * from movies order by release_year desc;
+
+        ID TITLE                GENRE                RELEASE_YEAR     RATING
+---------- -------------------- -------------------- ------------ ----------
+         5 Avatar 2             Action                       2022          5
+         4 Tenet                Action                       2020          5
+         3 Parasite             Drama                        2019          4
+         2 Inception            Thriller                     2010          5
+         1 The Godfather        Crime                        1972          5
+
+SQL> select genre,count(id) from movies group by genre;
+
+GENRE                 COUNT(ID)
+-------------------- ----------
+Crime                         1
+Thriller                      1
+Drama                         1
+Action                        2
+
+SQL> select genre, count(id) from movies group by genre having count(id)>1;
+
+GENRE                 COUNT(ID)
+-------------------- ----------
+Action                        2
+
+SQL> select genre, count(id) as movie_count from movies group by genre having count(id)<2 order by genre;
+
+GENRE                MOVIE_COUNT
+-------------------- -----------
+Crime                          1
+Drama                          1
+Thriller                       1
+
+SQL> spool off;

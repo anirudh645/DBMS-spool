@@ -1,0 +1,245 @@
+SQL> create table  Voters(Voter_id number(5),Voter_name char(10),Voter_address varchar2(15),Voter_age number(3));
+
+Table created.
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                           NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(15)
+ VOTER_AGE                                          NUMBER(3)
+
+SQL> alter table voters add voter_gender char(2);
+
+Table altered.
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                           NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(15)
+ VOTER_AGE                                          NUMBER(3)
+ VOTER_GENDER                                       CHAR(2)
+
+SQL> alter table voters drop column voter_gender;
+
+Table altered.
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                           NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(15)
+ VOTER_AGE                                          NUMBER(3)
+
+SQL> alter table voters modify voter_address varchar2(10);
+
+Table altered.
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                           NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(10)
+ VOTER_AGE                                          NUMBER(3)
+
+SQL> alter table voters add constraint unique_1 unique(voter_id);
+
+Table altered.
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                           NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(10)
+ VOTER_AGE                                          NUMBER(3)
+
+SQL> insert into voters values (1233, 'Anirudh', 'Guntur',18);
+
+1 row created.
+
+SQL> insert into voters values (1233, 'Aditya', 'Guntur',20);
+insert into voters values (1233, 'Aditya', 'Guntur',20)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.UNIQUE_1) violated 
+
+SQL> select * from voters;
+
+  VOTER_ID VOTER_NAME VOTER_ADDR  VOTER_AGE                                     
+---------- ---------- ---------- ----------                                     
+      1233 Anirudh    Guntur             18                                     
+
+SQL> alter table voters drop constraint unique_1;
+
+Table altered.
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                           NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(10)
+ VOTER_AGE                                          NUMBER(3)
+
+SQL> alter table voters add constraint prim primary key(voter_id);
+
+Table altered.
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                  NOT NULL NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(10)
+ VOTER_AGE                                          NUMBER(3)
+
+
+SQL> alter table voters add constraint check_const check(voter_age>=18);
+
+Table altered.
+
+SQL> insert into voters values(0001,'Sukumar','Guntur',16);
+insert into voters values(0001,'Sukumar','Guntur',16)
+*
+ERROR at line 1:
+ORA-02290: check constraint (SYSTEM.CHECK_CONST) violated 
+
+
+SQL> insert into voters values(0001,'Sukumar','Guntur',19);
+
+1 row created.
+
+SQL> select * from voters;
+
+  VOTER_ID VOTER_NAME VOTER_ADDR  VOTER_AGE                                     
+---------- ---------- ---------- ----------                                     
+      1233 Anirudh    Guntur             18                                     
+         1 Sukumar    Guntur             19   
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                  NOT NULL NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(10)
+ VOTER_AGE                                          NUMBER(3)
+
+SQL> alter table voters drop constraint check_const;
+
+Table altered.
+
+SQL> create table area(area_id number(5) primary key, area_name varchar2(10));
+
+Table created.
+
+SQL> desc area;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ AREA_ID                                   NOT NULL NUMBER(5)
+ AREA_NAME                                          VARCHAR2(10)
+
+SQL> insert into area values(01, 'Parthipadu');
+
+1 row created.
+
+SQL> insert into area values(02, 'Tadikonda');
+
+1 row created.
+
+SQL> insert into area values(03, 'Amaravati');
+
+1 row created.
+
+SQL> select * from area;
+
+   AREA_ID AREA_NAME                                                            
+---------- ----------                                                           
+         1 Parthipadu                                                           
+         2 Tadikonda                                                            
+         3 Amaravati                                                            
+
+SQL> alter table voters add constraint f_k foreign Key(area_id) references area(area_id);
+
+Table altered.
+
+SQL> select * from voters;
+
+  VOTER_ID VOTER_NAME VOTER_ADDR  VOTER_AGE    AREA_ID                          
+---------- ---------- ---------- ---------- ----------                          
+      1233 Anirudh    Guntur             18                                     
+         1 Sukumar    Guntur             19                                     
+
+SQL> update voters set area_id = 1 where voter_id =1;
+
+1 row updated.
+
+SQL> select * from voters;
+
+  VOTER_ID VOTER_NAME VOTER_ADDR  VOTER_AGE    AREA_ID                          
+---------- ---------- ---------- ---------- ----------                          
+      1233 Anirudh    Guntur             18                                     
+         1 Sukumar    Guntur             19          1  
+
+SQL> update voters set area_id = 5 where voter_id = 1233;
+update voters set area_id = 5 where voter_id = 1233
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.F_K) violated - parent key not found 
+
+
+SQL> alter table voters drop constraint f_k;
+
+Table altered.
+
+SQL> select * from voters;
+
+  VOTER_ID VOTER_NAME VOTER_ADDR  VOTER_AGE    AREA_ID                          
+---------- ---------- ---------- ---------- ----------                          
+      1233 Anirudh    Guntur             18                                     
+         1 Sukumar    Guntur             19          1                          
+
+SQL> alter table voters drop column area_id;
+
+Table altered.
+
+SQL> desc voters;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VOTER_ID                                  NOT NULL NUMBER(5)
+ VOTER_NAME                                         CHAR(10)
+ VOTER_ADDRESS                                      VARCHAR2(10)
+ VOTER_AGE                                          NUMBER(3)
+
+SQL> truncate table voters;
+
+Table truncated.
+
+SQL> alter table voters modify voter_address varchar2(10) default 'Guntur';
+
+Table altered.
+
+SQL> insert into voters(voter_id,voter_name,voter_age) values(1233,'Aditya',21);
+
+1 row created.
+
+SQL> select * from voters;
+
+  VOTER_ID VOTER_NAME VOTER_ADDR  VOTER_AGE
+---------- ---------- ---------- ----------
+      1233 Aditya     Guntur             21
+
+SQL> drop table voters;
+
+Table dropped.
+
+SQL> desc voters;
+ERROR:
+ORA-04043: object voters does not exist 
+
+SQL> spool off;

@@ -1,0 +1,82 @@
+SQL> create table shopping_list (id number(2) primary key,name varchar2(20), price number(4));
+
+Table created.
+
+SQL> insert into shopping_list values (1,'Atta flour',149);
+
+1 row created.
+
+SQL> insert into shopping_list values(2,'Cooking oil',299);
+
+1 row created.
+
+SQL> insert into shopping_list values(3, 'Eggs',29);
+
+1 row created.
+
+SQL> savepoint A;
+
+Savepoint created.
+
+SQL> insert into shopping_list values(4, 'Cake', 199);
+
+1 row created.
+
+SQL> select * from shopping_list;
+
+        ID NAME                      PRICE                                      
+---------- -------------------- ----------                                      
+         1 Atta flour                  149                                      
+         2 Cooking oil                 299                                      
+         3 Eggs                         29                                      
+         4 Cake                        199                                      
+
+SQL> insert into shopping_list values(5, 'Alcohol',699);
+
+1 row created.
+
+SQL> savepoint B;
+
+Savepoint created.
+
+SQL> select * from shopping_list;
+
+        ID NAME                      PRICE                                      
+---------- -------------------- ----------                                      
+         1 Atta flour                  149                                      
+         2 Cooking oil                 299                                      
+         3 Eggs                         29                                      
+         4 Cake                        199                                      
+         5 Alcohol                     699                                      
+
+SQL> rollback to A;
+
+Rollback complete.
+
+SQL> select * from shopping_list;
+
+        ID NAME                      PRICE                                      
+---------- -------------------- ----------                                      
+         1 Atta flour                  149                                      
+         2 Cooking oil                 299                                      
+         3 Eggs                         29                                      
+
+SQL> commit;
+
+Commit complete.
+
+SQL> rollback to B;
+rollback to B
+*
+ERROR at line 1:
+ORA-01086: savepoint 'B' never established in this session or is invalid 
+
+
+SQL> rollback to A;
+rollback to A
+*
+ERROR at line 1:
+ORA-01086: savepoint 'A' never established in this session or is invalid 
+
+
+SQL> spool off;

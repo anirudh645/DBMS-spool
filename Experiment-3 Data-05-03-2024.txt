@@ -1,0 +1,94 @@
+SQL> create table OnlineCourses(id int, title varchar(15),instructor varchar(15), duration int, enrolled_students int);
+
+Table created.
+
+SQL> desc OnlineCourses;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(38)
+ TITLE                                              VARCHAR2(15)
+ INSTRUCTOR                                         VARCHAR2(15)
+ DURATION                                           NUMBER(38)
+ ENROLLED_STUDENTS                                  NUMBER(38)
+
+SQL> insert into OnlineCourses values(1,'Python','Leo Das',8,120);
+
+1 row created.
+
+SQL> insert into OnlineCourses values(2,'DS','Narayana',8,420);
+
+1 row created.
+
+SQL> insert into OnlineCourses(id,title,instructor,duration,enrolled_students) values (&id,&title,&instructor,&duration,&enrolled_students);
+Enter value for id: 3
+Enter value for title: 'Java'
+Enter value for instructor: 'Antony Das'
+Enter value for duration: 8
+Enter value for enrolled_students: 69
+old   1: insert into OnlineCourses(id,title,instructor,duration,enrolled_students) values (&id,&title,&instructor,&duration,&enrolled_students)
+new   1: insert into OnlineCourses(id,title,instructor,duration,enrolled_students) values (3,'Java','Antony Das',8,69)
+
+1 row created.
+
+SQL> insert into OnlineCourses values (4,'Finance','Harshad Mehta',12,500);
+
+1 row created.
+
+SQL> select * from OnlineCourses;
+
+        ID TITLE           INSTRUCTOR        DURATION ENROLLED_STUDENTS         
+---------- --------------- --------------- ---------- -----------------         
+         1 Python          Leo Das                  8               120         
+         2 DS              Narayana                 8               420         
+         3 Java            Antony Das               8                69         
+         4 Finance         Harshad Mehta           12               500         
+
+SQL> select title,instructor,duration from OnlineCourses;
+
+TITLE           INSTRUCTOR        DURATION                                      
+--------------- --------------- ----------                                      
+Python          Leo Das                  8                                      
+DS              Narayana                 8                                      
+Java            Antony Das               8                                      
+Finance         Harshad Mehta           12                                      
+
+SQL> select * from OnlineCourses where duration>10;
+
+        ID TITLE           INSTRUCTOR        DURATION ENROLLED_STUDENTS         
+---------- --------------- --------------- ---------- -----------------         
+         4 Finance         Harshad Mehta           12               500         
+
+SQL> select title,insturctor from OnlineCourses where duration>10;
+select title,insturctor from OnlineCourses where duration>10
+             *
+ERROR at line 1:
+ORA-00904: "INSTURCTOR": invalid identifier 
+
+
+SQL> select title,instructor from OnlineCourses where duration>10;
+
+TITLE           INSTRUCTOR                                                      
+--------------- ---------------                                                 
+Finance         Harshad Mehta                                                   
+
+SQL> delete OnlineCourses where enrolled_students=69;
+
+1 row deleted.
+
+SQL> select * from OnlineCourses;
+
+        ID TITLE           INSTRUCTOR        DURATION ENROLLED_STUDENTS         
+---------- --------------- --------------- ---------- -----------------         
+         1 Python          Leo Das                  8               120         
+         2 DS              Narayana                 8               420         
+         4 Finance         Harshad Mehta           12               500         
+
+SQL> delete OnlineCourses;
+
+3 rows deleted.
+
+SQL> select * from OnlineCourses;
+
+no rows selected
+
+SQL> spool off;
