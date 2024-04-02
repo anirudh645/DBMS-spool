@@ -1,0 +1,102 @@
+SQL> create table std_db(sid number(4), sname varchar2(20), perc integer, gender varchar(6), branch varchar(6));
+
+Table created.
+
+SQL> desc std_db;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(4)
+ SNAME                                              VARCHAR2(20)
+ PERC                                               NUMBER(38)
+ GENDER                                             VARCHAR2(6)
+ BRANCH                                             VARCHAR2(6)
+
+SQL> insert into std_db values(101, 'Ramu', 78, 'Male', 'INF');
+
+1 row created.
+
+SQL> insert into std_db values(102, 'Ramya', 85, 'Female', 'INF');
+
+1 row created.
+
+SQL> insert into std_db values(103, 'Hari', 56, 'Male', 'ECE');
+
+1 row created.
+
+SQL> insert into std_db values(104, 'Vasu', 65, 'Male', 'CSE');
+
+1 row created.
+
+SQL> select * from std_db;
+
+       SID SNAME                      PERC GENDER BRANCH                        
+---------- -------------------- ---------- ------ ------                        
+       101 Ramu                         78 Male   INF                           
+       102 Ramya                        85 Female INF                           
+       103 Hari                         56 Male   ECE                           
+       104 Vasu                         65 Male   CSE                           
+
+SQL> create view INF_stu as select * from std_db where branch = 'INF';
+
+View created.
+
+SQL> select * from INF_stu;
+
+       SID SNAME                      PERC GENDER BRANCH                        
+---------- -------------------- ---------- ------ ------                        
+       101 Ramu                         78 Male   INF                           
+       102 Ramya                        85 Female INF                           
+
+SQL> create view CSE_stu as select * from std_db where branch = 'CSE';
+
+View created.
+
+SQL> select * from CSE_stu;
+
+       SID SNAME                      PERC GENDER BRANCH                        
+---------- -------------------- ---------- ------ ------                        
+       104 Vasu                         65 Male   CSE                           
+
+SQL> update CSE_stu set perc = 80 where sid = 104;
+
+1 row updated.
+
+SQL> select * from CSE_stu;
+
+       SID SNAME                      PERC GENDER BRANCH                        
+---------- -------------------- ---------- ------ ------                        
+       104 Vasu                         80 Male   CSE                           
+
+SQL> select * from std_db;
+
+       SID SNAME                      PERC GENDER BRANCH                        
+---------- -------------------- ---------- ------ ------                        
+       101 Ramu                         78 Male   INF                           
+       102 Ramya                        85 Female INF                           
+       103 Hari                         56 Male   ECE                           
+       104 Vasu                         80 Male   CSE                           
+
+SQL> update std_db set perc = 85 where sid = 104;
+
+1 row updated.
+
+SQL> select * from CSE_stu;
+
+       SID SNAME                      PERC GENDER BRANCH                        
+---------- -------------------- ---------- ------ ------                        
+       104 Vasu                         85 Male   CSE                           
+
+SQL> select * from std_db;
+
+       SID SNAME                      PERC GENDER BRANCH                        
+---------- -------------------- ---------- ------ ------                        
+       101 Ramu                         78 Male   INF                           
+       102 Ramya                        85 Female INF                           
+       103 Hari                         56 Male   ECE                           
+       104 Vasu                         85 Male   CSE                           
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;

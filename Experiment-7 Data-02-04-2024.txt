@@ -1,0 +1,390 @@
+SQL> create  table emp_sal(emp_id number(4), emp_salary number(5), emp_dept varchar(10));
+
+Table created.
+
+SQL> desc emp_sal;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER(4)
+ EMP_SALARY                                         NUMBER(5)
+ EMP_DEPT                                           VARCHAR2(10)
+
+SQL> insert into emp_sal values(1233,25000,'Coding');
+
+1 row created.
+
+SQL> insert into emp_sal values(1249,23000,'Coding');
+
+1 row created.
+
+SQL> insert into emp_sal values(1250,20000,'HR');
+
+1 row created.
+
+SQL> insert into emp_sal values(7777,24000,'Design');
+
+1 row created.
+
+SQL> select count(*) from emp_sal;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         4                                                                      
+
+SQL> select max(emp_salary),min(emp_salary) from emp_sal;
+
+MAX(EMP_SALARY) MIN(EMP_SALARY)                                                 
+--------------- ---------------                                                 
+          25000           20000                                                 
+
+SQL> select avg(emp_salary) from emp_sal;
+
+AVG(EMP_SALARY)                                                                 
+---------------                                                                 
+          23000                                                                 
+
+SQL> select sum(emp_salary) from emp_sal;
+
+SUM(EMP_SALARY)                                                                 
+---------------                                                                 
+          92000                                                                 
+
+SQL> select emp_id,emp_dept,sqrt(emp_salary) from emp_sal;
+
+    EMP_ID EMP_DEPT   SQRT(EMP_SALARY)                                          
+---------- ---------- ----------------                                          
+      1233 Coding           158.113883                                          
+      1249 Coding           151.657509                                          
+      1250 HR               141.421356                                          
+      7777 Design           154.919334                                          
+
+SQL> select concat(emp_salary,emp_dept) from emp_sal;
+
+CONCAT(EMP_SALARY,EMP_DEPT)                                                     
+--------------------------------------------------                              
+25000Coding                                                                     
+23000Coding                                                                     
+20000HR                                                                         
+24000Design                                                                     
+
+SQL> select abs(-666999) from dual;
+
+ABS(-666999)                                                                    
+------------                                                                    
+      666999                                                                    
+
+SQL> select sin(45*62) as sin from dual;
+
+       SIN                                                                      
+----------                                                                      
+.262607552                                                                      
+
+SQL> select asin(45*0.0125) from dual;
+
+ASIN(45*0.0125)                                                                 
+---------------                                                                 
+     .597406417                                                                 
+
+SQL> select cos(47) from dual;
+
+   COS(47)                                                                      
+----------                                                                      
+-.99233547                                                                      
+
+SQL> select acos(0.1269) from dual;
+
+ACOS(0.1269)                                                                    
+------------                                                                    
+  1.44355324                                                                    
+
+SQL> select exp(10) as exponent from dual;
+
+  EXPONENT                                                                      
+----------                                                                      
+22026.4658                                                                      
+
+SQL> select ceil(49.5) from dual;
+
+CEIL(49.5)                                                                      
+----------                                                                      
+        50                                                                      
+
+SQL> select ceil(49.4) from dual;
+
+CEIL(49.4)                                                                      
+----------                                                                      
+        50                                                                      
+
+SQL> select floor(68.8) from dual;
+
+FLOOR(68.8)                                                                     
+-----------                                                                     
+         68                                                                     
+
+SQL> select log(2,5) from dual;
+
+  LOG(2,5)                                                                      
+----------                                                                      
+2.32192809                                                                      
+
+SQL> select power(5,4) from dual;
+
+POWER(5,4)                                                                      
+----------                                                                      
+       625                                                                      
+
+SQL> select round(32.4) from dual;
+
+ROUND(32.4)                                                                     
+-----------                                                                     
+         32                                                                     
+
+SQL> select trunc(234.4552,1) from dual;
+
+TRUNC(234.4552,1)                                                               
+-----------------                                                               
+            234.4                                                               
+
+SQL> select concat('Anirudh',' Chunduru') from dual;
+
+CONCAT('ANIRUDH'                                                                
+----------------                                                                
+Anirudh Chunduru                                                                
+
+SQL> select 'Aditya' || 'Chunduru' fullname from dual;
+
+FULLNAME                                                                        
+--------------                                                                  
+AdityaChunduru                                                                  
+
+SQL> select replace('Amazing subject of DBMS','a','j') from dual;
+
+REPLACE('AMAZINGSUBJECT                                                         
+-----------------------                                                         
+Amjzing subject of DBMS                                                         
+
+SQL> select lower('AmaZiNg') from dual;
+
+LOWER('                                                                         
+-------                                                                         
+amazing                                                                         
+
+SQL> select upper('hello world') from dual;
+
+UPPER('HELL                                                                     
+-----------                                                                     
+HELLO WORLD                                                                     
+
+SQL> select trim('         Hello        ') from dual;
+
+TRIM(                                                                           
+-----                                                                           
+Hello                                                                           
+
+SQL> select trim(leading' 'from'         Hello        ') from dual;
+
+TRIM(LEADING'                                                                   
+-------------                                                                   
+Hello                                                                           
+
+SQL> select trim(trailling' 'from'         Hello        ') from dual;
+select trim(trailling' 'from'         Hello        ') from dual
+                     *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select trim(trailing' 'from'         Hello        ') from dual;
+
+TRIM(TRAILING'                                                                  
+--------------                                                                  
+         Hello                                                                  
+
+SQL> select trim('h' from 'Life is happy') from dual;
+
+TRIM('H'FROM'                                                                   
+-------------                                                                   
+Life is happy                                                                   
+
+SQL> select trim('h' from 'Life is Happy') from dual;
+
+TRIM('H'FROM'                                                                   
+-------------                                                                   
+Life is Happy                                                                   
+
+SQL> select trim('H' from 'Life is Happy') from dual;
+
+TRIM('H'FROM'                                                                   
+-------------                                                                   
+Life is Happy                                                                   
+
+SQL> select trim('H' from 'Happy') from dual;
+
+TRIM                                                                            
+----                                                                            
+appy                                                                            
+
+SQL> select ltrim(' Anirudh') from dual;
+
+LTRIM('                                                                         
+-------                                                                         
+Anirudh                                                                         
+
+SQL> select ltrim('@@@@@@@@Anirudh') from dual;
+
+LTRIM('@@@@@@@@                                                                 
+---------------                                                                 
+@@@@@@@@Anirudh                                                                 
+
+SQL> select ltrim('@@@@@@@@Anirudh','@') from dual;
+
+LTRIM('                                                                         
+-------                                                                         
+Anirudh                                                                         
+
+SQL> select rtrim(' hari      ') from dual;
+
+RTRIM                                                                           
+-----                                                                           
+ hari                                                                           
+
+SQL> select rtrim('-----hari-----','-')from dual;
+
+RTRIM('--                                                                       
+---------                                                                       
+-----hari                                                                       
+
+SQL> select * from emp_sal;
+
+    EMP_ID EMP_SALARY EMP_DEPT                                                  
+---------- ---------- ----------                                                
+      1233      25000 Coding                                                    
+      1249      23000 Coding                                                    
+      1250      20000 HR                                                        
+      7777      24000 Design                                                    
+
+SQL> select lpad(emp_id,5,'@') from emp_sal;
+
+LPAD(EMP_ID,5,'@')                                                              
+--------------------                                                            
+@1233                                                                           
+@1249                                                                           
+@1250                                                                           
+@7777                                                                           
+
+SQL> select rpad(emp_id,5,'@')from emp_sal;
+
+RPAD(EMP_ID,5,'@')                                                              
+--------------------                                                            
+1233@                                                                           
+1249@                                                                           
+1250@                                                                           
+7777@                                                                           
+
+SQL> select initcap('hello world is the first line')as initcap from dual;
+
+INITCAP                                                                         
+-----------------------------                                                   
+Hello World Is The First Line                                                   
+
+SQL> select substr('Emergency',3,3) from dual;
+
+SUB                                                                             
+---                                                                             
+erg                                                                             
+
+SQL> select translate('Amazing||line|of| work|','|','@') as new_String from dual;
+
+NEW_STRING                                                                      
+-----------------------                                                         
+Amazing@@line@of@ work@                                                         
+
+SQL> select translate('kasjf-alhdo-ahdkl','jsd','aaa') as new_string from dual;
+
+NEW_STRING                                                                      
+-----------------                                                               
+kaaaf-alhao-ahakl                                                               
+
+SQL> select length(emp_id) from emp_sal;
+
+LENGTH(EMP_ID)                                                                  
+--------------                                                                  
+             4                                                                  
+             4                                                                  
+             4                                                                  
+             4                                                                  
+
+SQL> select length(emp_dept) from emp_sal;
+
+LENGTH(EMP_DEPT)                                                                
+----------------                                                                
+               6                                                                
+               6                                                                
+               2                                                                
+               6                                                                
+
+SQL> select * from emp_sal;
+
+    EMP_ID EMP_SALARY EMP_DEPT                                                  
+---------- ---------- ----------                                                
+      1233      25000 Coding                                                    
+      1249      23000 Coding                                                    
+      1250      20000 HR                                                        
+      7777      24000 Design                                                    
+
+SQL> select emp_id,emp_salary,length(emp_dept) from emp_sal;
+
+    EMP_ID EMP_SALARY LENGTH(EMP_DEPT)                                          
+---------- ---------- ----------------                                          
+      1233      25000                6                                          
+      1249      23000                6                                          
+      1250      20000                2                                          
+      7777      24000                6                                          
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                         
+---------                                                                       
+02-APR-24                                                                       
+
+SQL> select add_months(sysdate,10) as new from dual;
+
+NEW                                                                             
+---------                                                                       
+02-FEB-25                                                                       
+
+SQL> select last_day(sysdate) from dual;
+
+LAST_DAY(                                                                       
+---------                                                                       
+30-APR-24                                                                       
+
+SQL> select next_day(sysdate,'sunday') from dual;
+
+NEXT_DAY(                                                                       
+---------                                                                       
+07-APR-24                                                                       
+
+SQL> select months_between('09-apr-2022',sysdate) from dual;
+
+MONTHS_BETWEEN('09-APR-2022',SYSDATE)                                           
+-------------------------------------                                           
+                           -23.792665                                           
+
+SQL> select months_between('02-apr-2022',sysdate) from dual;
+
+MONTHS_BETWEEN('02-APR-2022',SYSDATE)                                           
+-------------------------------------                                           
+                                  -24                                           
+
+SQL> select current_date,sessiontimezone from dual;
+
+CURRENT_D                                                                       
+---------                                                                       
+SESSIONTIMEZONE                                                                 
+---------------------------------------------------------------------------     
+02-APR-24                                                                       
++05:30                                                                          
+                                                                                
+
+SQL> spool off;
